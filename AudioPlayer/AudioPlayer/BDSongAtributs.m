@@ -94,7 +94,7 @@
     //создаю
     CFDictionaryRef piDict = nil;
     UInt32 piDataSize = sizeof(piDict);
-    error = AudioFileGetProperty(fileId, kAudioFilePropertyInfoDictionary, &piDataSize, piDict);
+    error = AudioFileGetProperty(*fileId, kAudioFilePropertyInfoDictionary, &piDataSize, piDict);
     if (error != noErr) {
         NSLog(@"AudioFileGetProperty failed for property info dictionary");
     }
@@ -103,7 +103,74 @@
 }
 
 
+#pragma mark metods for get other ID3
+-(NSString *) getTitle
+{
+    //проверяем есть ли у песни атрибут Title
+    if ([fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Title]]) {
+        return [fileInfoDict objectForKey:[ NSString stringWithUTF8String:kAFInfoDictionary_Title]];
+    }
+    //если нет то возвращаем полный путь к файлу (url)
+    else
+    {
+        NSString *url = [filePath absoluteString];
+        NSArray *parts = [url componentsSeparatedByString:@"/"];
+        return [parts objectAtIndex:[parts count]-1];
+    }
+   // return nil; //TODO данный return нужен??
+}
 
+-(NSString *) getArtist
+{
+    if ([fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Artist]]) {
+        return [fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Artist]];
+    }
+    else
+    {
+        return @"";
+    }
+}
+-(NSString *) getGenre
+{
+    if ([fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Genre]]) {
+        return [fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Genre]];
+    }
+    else
+    {
+        return @"";
+    }
+}
+
+-(NSString *) getAlbum
+{
+    if ([fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Album]]) {
+        return [fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_Album]];
+    }
+    else
+    {
+        return @"";
+    }
+}
+-(float) getDuration
+{
+    if ([fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_ApproximateDurationInSeconds]]) {
+        return [[fileInfoDict objectForKey:[NSString stringWithUTF8String:kAFInfoDictionary_ApproximateDurationInSeconds]] floatValue];
+    }
+    else
+    {
+        return 0;
+    }
+}
+-(NSString *)getDurationInMinutes
+{
+    return [NSString stringWithFormat: @"%d:%02d", (int)[self getDuration] / 60, (int) [self getDuration] % 60, nil];
+}
+
+//TODO как получить обложку песни?
+-(UIImage *)getCoverImage
+{
+    return nil;
+}
 
 
 @end

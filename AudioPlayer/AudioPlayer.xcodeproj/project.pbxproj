@@ -19,6 +19,7 @@
 		840B91C318894779005529C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B91AB18894779005529C1 /* UIKit.framework */; };
 		840B91CB18894779005529C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 840B91C918894779005529C1 /* InfoPlist.strings */; };
 		840B91CD18894779005529C1 /* AudioPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 840B91CC18894779005529C1 /* AudioPlayerTests.m */; };
+		843B923C188C39F0000C474C /* BDSongsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 843B923B188C39F0000C474C /* BDSongsStorage.m */; };
 		84E04A331889922100D9430C /* 01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A301889922100D9430C /* 01.mp3 */; };
 		84E04A341889922100D9430C /* 02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A311889922100D9430C /* 02.mp3 */; };
 		84E04A351889922100D9430C /* 03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A321889922100D9430C /* 03.mp3 */; };
@@ -53,6 +54,8 @@
 		840B91C818894779005529C1 /* AudioPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AudioPlayerTests-Info.plist"; sourceTree = "<group>"; };
 		840B91CA18894779005529C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		840B91CC18894779005529C1 /* AudioPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerTests.m; sourceTree = "<group>"; };
+		843B923A188C39F0000C474C /* BDSongsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSongsStorage.h; sourceTree = "<group>"; };
+		843B923B188C39F0000C474C /* BDSongsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSongsStorage.m; sourceTree = "<group>"; };
 		84E04A301889922100D9430C /* 01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 01.mp3; sourceTree = SOURCE_ROOT; };
 		84E04A311889922100D9430C /* 02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 02.mp3; sourceTree = SOURCE_ROOT; };
 		84E04A321889922100D9430C /* 03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 03.mp3; sourceTree = SOURCE_ROOT; };
@@ -168,6 +171,8 @@
 			children = (
 				84E04A361889968200D9430C /* BDSongAtributs.h */,
 				84E04A371889968200D9430C /* BDSongAtributs.m */,
+				843B923A188C39F0000C474C /* BDSongsStorage.h */,
+				843B923B188C39F0000C474C /* BDSongsStorage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843B923C188C39F0000C474C /* BDSongsStorage.m in Sources */,
 				840B91B818894779005529C1 /* BDAppDelegate.m in Sources */,
 				840B91B418894779005529C1 /* main.m in Sources */,
 				84E04A381889968200D9430C /* BDSongAtributs.m in Sources */,

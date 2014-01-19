@@ -20,6 +20,8 @@
 -(NSString *) getTitle;
 -(NSString *) getArtist;
 -(NSString *) getAlbum;
+-(NSString *) getGenre;
 -(float) getDuration;
--(UIImage *)getCover;
+-(NSString *)getDurationInMinutes;
+-(UIImage *)getCoverImage;
 @end
