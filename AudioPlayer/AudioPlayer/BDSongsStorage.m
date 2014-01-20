@@ -7,11 +7,13 @@
 //
 
 #import "BDSongsStorage.h"
+#import "BDSongAtributs.h"
 @interface BDSongsStorage ()
 
 {
     //массив для файлов песен
-    NSMutableArray *fileArray;
+    NSMutableArray *fileArray; //TODO правильно ли так их объявлять может надо было сдлеать property?
+    NSMutableArray *atributsArray;
 }
 
 @end
@@ -39,12 +41,43 @@
     self = [super init];
     if (self) {
         fileArray = [[NSMutableArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"01" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"02" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"03" ofType:@"mp3"], nil];
+        atributsArray = [[NSMutableArray alloc] init];
+        for (NSString *fileURL  in fileArray) {
+            BDSongAtributs *atribubsForFile = [[BDSongAtributs alloc] initWithPath:[NSURL fileURLWithPath:fileURL]];
+            [atributsArray addObject:atribubsForFile];
+        }
     }
     return self;
 }
 
--(NSArray *)getSongs
+-(NSArray *)getFileSongs
 {
     return fileArray;
 }
+
+#pragma mark methods for grouping attributes
+
+-(NSArray *) getArrayAtributsTitle //TODO несовместимость типов, можно ли как-то решить это и вообзе есть ли смысл в возвращать неизменяемый массив (я думал что это желательно для безопасности, но так ли это на самом деле?)
+{
+    NSMutableArray *ArrayAtributsTitle = [[NSArray alloc] init];
+     for (BDSongAtributs *fileTitle  in atributsArray) {
+         [ArrayAtributsTitle addObject:[fileTitle getTitle]];
+     }
+    return ArrayAtributsTitle;
+    
+}
+-(NSArray *) getArrayAtributsArtist
+{
+
+}
+-(NSArray *) getArrayAtributsAlbum
+{
+
+}
+-(NSArray *) getArrayAtributsGenre
+{
+
+}
+
+
 @end
