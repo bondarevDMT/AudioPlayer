@@ -9,17 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDSongsStorage : NSObject
+@interface BDSongsStorage : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 +(BDSongsStorage *)sharedInstance;
 
 -(NSArray *)getFileSongs;
-
-//методы для получения массива со списком конкретного атрибута по всем файлам (планируется, что они будут применятся для отображения в таблице списка треков группированных по какому-либо атрибуту mp3 файла)
--(NSArray *) getArrayAtributsTitle;
--(NSArray *) getArrayAtributsArtist;
--(NSArray *) getArrayAtributsAlbum;
--(NSArray *) getArrayAtributsGenre;
-
 
 @end

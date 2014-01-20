@@ -44,7 +44,7 @@
     }
     UInt32 ID3DataSize = 0; //переменная для хранения размера памяти ID3
     //Получаю информацию о размере занимаемой памяти ID3 данных и заношу в ID3DataSize
-    error = AudioFileGetPropertyInfo(*fileId, kAudioFilePropertyID3Tag, &ID3DataSize, NULL); //TODO почему fileId с * (логично что fileId содержит адрес экземпляра класса и операция * здесь нужна) но прога по которой я делал работала без * В чем может быть причина?
+    error = AudioFileGetPropertyInfo(fileId, kAudioFilePropertyID3Tag, &ID3DataSize, NULL); //TODO почему fileId с * (логично что fileId содержит адрес экземпляра класса и операция * здесь нужна) но прога по которой я делал работала без * В чем может быть причина?
     if (error != noErr) {
         NSLog(@"AudioFileGetPropertyInfo failed for ID3 tag");
     }
@@ -54,7 +54,7 @@
         NSLog(@"could not allocate %d bytes of memory for ID3 tag", (unsigned int)ID3DataSize);
     }
     //Заносим ID3 свойства размером (Datasize) в rawID3raw
-    error = AudioFileGetProperty(*fileId, kAudioFilePropertyID3Tag, &ID3DataSize, rawID3raw);
+    error = AudioFileGetProperty(fileId, kAudioFilePropertyID3Tag, &ID3DataSize, rawID3raw);
     if (error != noErr) {
         NSLog(@"ID3 is failed");
     }
@@ -94,7 +94,7 @@
     //создаю
     CFDictionaryRef piDict = nil;
     UInt32 piDataSize = sizeof(piDict);
-    error = AudioFileGetProperty(*fileId, kAudioFilePropertyInfoDictionary, &piDataSize, piDict);
+    error = AudioFileGetProperty(fileId, kAudioFilePropertyInfoDictionary, &piDataSize, piDict);
     if (error != noErr) {
         NSLog(@"AudioFileGetProperty failed for property info dictionary");
     }
