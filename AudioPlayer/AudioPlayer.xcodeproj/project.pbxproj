@@ -23,9 +23,12 @@
 		84431C27188DAD5A00D8FFFA /* BDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84431C26188DAD5A00D8FFFA /* BDViewController.m */; };
 		84E04A331889922100D9430C /* 01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A301889922100D9430C /* 01.mp3 */; };
 		84E04A341889922100D9430C /* 02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A311889922100D9430C /* 02.mp3 */; };
-		84E04A351889922100D9430C /* 03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A321889922100D9430C /* 03.mp3 */; };
 		84E04A381889968200D9430C /* BDSongAtributs.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E04A371889968200D9430C /* BDSongAtributs.m */; };
 		84E04A3A1889A5DF00D9430C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E04A391889A5DF00D9430C /* AudioToolbox.framework */; };
+		84E8BA6E188ECD0A00E4C0DC /* BDMediaPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8BA6D188ECD0A00E4C0DC /* BDMediaPlayerController.m */; };
+		84E8BA72188EE07F00E4C0DC /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E8BA6F188EE07F00E4C0DC /* 1.mp3 */; };
+		84E8BA73188EE07F00E4C0DC /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E8BA70188EE07F00E4C0DC /* 2.mp3 */; };
+		84E8BA74188EE07F00E4C0DC /* 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E8BA71188EE07F00E4C0DC /* 3.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,10 +64,14 @@
 		84431C26188DAD5A00D8FFFA /* BDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDViewController.m; sourceTree = "<group>"; };
 		84E04A301889922100D9430C /* 01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 01.mp3; sourceTree = SOURCE_ROOT; };
 		84E04A311889922100D9430C /* 02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 02.mp3; sourceTree = SOURCE_ROOT; };
-		84E04A321889922100D9430C /* 03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 03.mp3; sourceTree = SOURCE_ROOT; };
 		84E04A361889968200D9430C /* BDSongAtributs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSongAtributs.h; sourceTree = "<group>"; };
 		84E04A371889968200D9430C /* BDSongAtributs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSongAtributs.m; sourceTree = "<group>"; };
 		84E04A391889A5DF00D9430C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		84E8BA6C188ECD0A00E4C0DC /* BDMediaPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDMediaPlayerController.h; sourceTree = "<group>"; };
+		84E8BA6D188ECD0A00E4C0DC /* BDMediaPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDMediaPlayerController.m; sourceTree = "<group>"; };
+		84E8BA6F188EE07F00E4C0DC /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = SOURCE_ROOT; };
+		84E8BA70188EE07F00E4C0DC /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = SOURCE_ROOT; };
+		84E8BA71188EE07F00E4C0DC /* 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 3.mp3; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +149,9 @@
 			children = (
 				84E04A301889922100D9430C /* 01.mp3 */,
 				84E04A311889922100D9430C /* 02.mp3 */,
-				84E04A321889922100D9430C /* 03.mp3 */,
+				84E8BA6F188EE07F00E4C0DC /* 1.mp3 */,
+				84E8BA70188EE07F00E4C0DC /* 2.mp3 */,
+				84E8BA71188EE07F00E4C0DC /* 3.mp3 */,
 				840B91AF18894779005529C1 /* AudioPlayer-Info.plist */,
 				840B91B018894779005529C1 /* InfoPlist.strings */,
 				840B91B318894779005529C1 /* main.m */,
@@ -183,8 +192,6 @@
 		84E04A2B1889909700D9430C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				84431C25188DAD5A00D8FFFA /* BDViewController.h */,
-				84431C26188DAD5A00D8FFFA /* BDViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -192,6 +199,10 @@
 		84E04A2C188990A800D9430C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84431C25188DAD5A00D8FFFA /* BDViewController.h */,
+				84431C26188DAD5A00D8FFFA /* BDViewController.m */,
+				84E8BA6C188ECD0A00E4C0DC /* BDMediaPlayerController.h */,
+				84E8BA6D188ECD0A00E4C0DC /* BDMediaPlayerController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -272,11 +283,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E04A351889922100D9430C /* 03.mp3 in Resources */,
 				84E04A331889922100D9430C /* 01.mp3 in Resources */,
+				84E8BA74188EE07F00E4C0DC /* 3.mp3 in Resources */,
 				840B91B218894779005529C1 /* InfoPlist.strings in Resources */,
 				84E04A341889922100D9430C /* 02.mp3 in Resources */,
+				84E8BA73188EE07F00E4C0DC /* 2.mp3 in Resources */,
 				840B91BA18894779005529C1 /* Images.xcassets in Resources */,
+				84E8BA72188EE07F00E4C0DC /* 1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +311,7 @@
 				843B923C188C39F0000C474C /* BDSongsStorage.m in Sources */,
 				840B91B818894779005529C1 /* BDAppDelegate.m in Sources */,
 				84431C27188DAD5A00D8FFFA /* BDViewController.m in Sources */,
+				84E8BA6E188ECD0A00E4C0DC /* BDMediaPlayerController.m in Sources */,
 				840B91B418894779005529C1 /* main.m in Sources */,
 				84E04A381889968200D9430C /* BDSongAtributs.m in Sources */,
 			);

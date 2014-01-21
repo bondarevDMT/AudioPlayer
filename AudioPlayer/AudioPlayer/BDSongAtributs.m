@@ -10,13 +10,13 @@
 
 @interface BDSongAtributs ()
 
-@property (nonatomic, retain) NSURL *filePath;
 @property (nonatomic, retain) NSDictionary *fileInfoDict;
 
 @end
 
 
 @implementation BDSongAtributs
+
 @synthesize filePath;
 @synthesize fileInfoDict;
 
@@ -25,20 +25,21 @@
     self = [super init];
     if (self) {
         //в filepath заношу путь к аудиофайлу
-        self.filePath = path;
+        filePath = path;
         //в fileInfoDict заношу словарь я атрибутами
-        self.fileInfoDict = [self songID3Tegs];
+        fileInfoDict = [self songID3Tegs];
         
     }
     return self;
 }
 
+
 -(NSDictionary *)songID3Tegs
 {
 
-    AudioFileID * fileId = nil; // структура для хранения айдиофайла
+    AudioFileID fileId = nil; // структура для хранения айдиофайла
     OSStatus error = noErr; // ошибка для проверки
-    error = AudioFileOpenURL((__bridge CFURLRef) self.filePath, kAudioFileReadPermission, 0, fileId);
+    error = AudioFileOpenURL((__bridge CFURLRef) self.filePath, kAudioFileReadPermission, 0, &fileId);
     if (error != noErr) {
         NSLog(@"Audio Url failed");
     }
@@ -94,13 +95,15 @@
     //создаю
     CFDictionaryRef piDict = nil;
     UInt32 piDataSize = sizeof(piDict);
-    error = AudioFileGetProperty(fileId, kAudioFilePropertyInfoDictionary, &piDataSize, piDict);
+    
+    error = AudioFileGetProperty(fileId, kAudioFilePropertyInfoDictionary, &piDataSize, &piDict);
     if (error != noErr) {
         NSLog(@"AudioFileGetProperty failed for property info dictionary");
     }
     free(rawID3raw);
     return (__bridge NSDictionary *)piDict;
 }
+
 
 
 #pragma mark metods for get other ID3
@@ -170,6 +173,11 @@
 -(UIImage *)getCoverImage
 {
     return nil;
+}
+    
+-(NSURL *) getPath
+{
+    return filePath;
 }
 
 

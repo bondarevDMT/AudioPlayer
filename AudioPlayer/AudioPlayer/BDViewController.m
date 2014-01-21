@@ -9,6 +9,7 @@
 #import "BDViewController.h"
 #import "BDSongsStorage.h"
 
+
 @interface BDViewController ()
 {
     UITableView * dataTable;
@@ -18,14 +19,14 @@
 
 @implementation BDViewController
 
-/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
     return self;
-}*/
+}
 
 - (void)viewDidLoad
 {
@@ -40,11 +41,10 @@
     [dataTable setBackgroundView:Nil];
     //Указываю что делегатом таблицы является BDSongsStorage
     [dataTable setDelegate: songsStorage];
+    [dataTable setDelegate:self];
     [dataTable setDataSource: songsStorage];
     //Добавляю таблицу как субвью
     [self.view addSubview:dataTable];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,5 +52,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 
 @end

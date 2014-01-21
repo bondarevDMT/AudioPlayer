@@ -8,6 +8,7 @@
 
 #import "BDAppDelegate.h"
 #import "BDViewController.h"
+#import "BDMediaPlayerController.h"
 
 @implementation BDAppDelegate
 
@@ -16,7 +17,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     BDViewController *viewController = [[BDViewController alloc] init];
-    [[self window] setRootViewController: viewController];
+    
+    BDMediaPlayerController *MediaPlayer = [[BDMediaPlayerController alloc] init];
+    [[self window] setRootViewController:MediaPlayer];
+    
+   // UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+
+   // [[self window] setRootViewController: navigationController];
     [self.window makeKeyAndVisible];
     return YES;
 }

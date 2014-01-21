@@ -13,9 +13,11 @@
 
 @interface BDSongAtributs : NSObject
 
+@property (nonatomic, retain) NSURL *filePath;
 
 
--(BDSongAtributs *)initWithPath:(NSURL *) path;
+
+-(BDSongAtributs *)initWithPath:(NSURL *)path;
 -(NSDictionary *)songID3Tegs;
 -(NSString *) getTitle;
 -(NSString *) getArtist;
@@ -24,4 +26,5 @@
 -(float) getDuration;
 -(NSString *)getDurationInMinutes;
 -(UIImage *)getCoverImage;
+-(NSURL *) getPath;
 @end
