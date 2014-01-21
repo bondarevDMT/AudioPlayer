@@ -18,20 +18,20 @@
 
 @implementation BDViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
     return self;
-}
+}*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //Инициалищирую цвет фона
-	self.view.backgroundColor = [UIColor colorWithRed:0.76f green:0.81f blue:0.87f alpha:1.f];
+	self.view.backgroundColor = [UIColor whiteColor];
     //Создаю синглтон
     BDSongsStorage *songsStorage = [BDSongsStorage sharedInstance];
     //создаю фрейм для отображения таблицы со списком песен
@@ -41,7 +41,7 @@
     //Указываю что делегатом таблицы является BDSongsStorage
     [dataTable setDelegate: songsStorage];
     [dataTable setDataSource: songsStorage];
-    //Доьавляю таблицу как субвью
+    //Добавляю таблицу как субвью
     [self.view addSubview:dataTable];
     
     

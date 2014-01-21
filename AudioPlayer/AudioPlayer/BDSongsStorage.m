@@ -15,6 +15,7 @@
     //массив для файлов песен
     NSMutableArray *fileArray; //TODO правильно ли так их объявлять может надо было сдлеать property?
     NSMutableArray *atributsArray;
+    NSMutableArray *allTitleAtributs;
 }
 
 @end
@@ -48,6 +49,8 @@
         for (NSString *fileURL  in fileArray) {
             BDSongAtributs *atribubsForFile = [[BDSongAtributs alloc] initWithPath:[NSURL fileURLWithPath:fileURL]];
             [atributsArray addObject:atribubsForFile];
+            //инициализирую массив состоящий из названий песен
+            allTitleAtributs = [self getArrayAtributsTitle];
         }
     }
     return self;
@@ -65,14 +68,13 @@
 #pragma mark methods for grouping attributes
 
 
--(NSArray *) getArrayAtributsTitle //TODO несовместимость типов, можно ли как-то решить это и вообзе есть ли смысл в возвращать неизменяемый массив (я думал что это желательно для безопасности, но так ли это на самом деле?)
+-(NSMutableArray *) getArrayAtributsTitle //TODO несовместимость типов, можно ли как-то решить это и вообзе есть ли смысл возвращать неизменяемый массив (я думал что это желательно для безопасности, но так ли это на самом деле?)
 {
-    NSMutableArray *ArrayAtributsTitle = [[NSArray alloc] init];
+    NSMutableArray *ArrayAtributsTitle = [[NSMutableArray alloc] init];
      for (BDSongAtributs *fileTitle  in atributsArray) {
          [ArrayAtributsTitle addObject:[fileTitle getTitle]];
      }
     return ArrayAtributsTitle;
-    
 }
 
 /*-(NSArray *) getArrayAtributsArtist
@@ -90,5 +92,35 @@
 
 }*/
 
+
+#pragma mark metods for table delegate
+
+//В таблице будет только один столбец
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+//количество ячеек равно числу элементов массива из названий всех песен
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [allTitleAtributs count];
+}
+
+//в таблице будут отображаться все значения из массива allTitleAtributs
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if(!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    cell.textLabel.text = [[NSString stringWithFormat:@"%@",[allTitleAtributs objectAtIndex:indexPath.row]] stringByDeletingPathExtension];//TODO не совсем понял где указываю что выводить все элементы из массива
+    return cell;
+}
 
 @end
