@@ -14,7 +14,6 @@
 
 {
     //массив для файлов песен
-    NSMutableArray *fileArray; //TODO правильно ли так их объявлять может надо было сдлеать property?
     NSMutableArray *atributsArray;
     NSMutableArray *allTitleAtributs;
 }
@@ -46,7 +45,7 @@
 {
     self = [super init];
     if (self) {
-        fileArray = [[NSMutableArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"01" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"02" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"1" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"2" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"3" ofType:@"mp3"], nil];
+        NSArray* fileArray = [[NSMutableArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"01" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"02" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"1" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"2" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"3" ofType:@"mp3"], nil];
        
         //Создаю массив атрибутов для каждой песни из fileArray
         atributsArray = [[NSMutableArray alloc] init];
@@ -58,9 +57,5 @@
     return self;
 }
 
--(NSArray *)getFileSongs
-{
-    return fileArray;
-}
 
 @end

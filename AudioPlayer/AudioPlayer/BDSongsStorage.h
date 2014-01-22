@@ -13,6 +13,4 @@
 
 +(BDSongsStorage *)sharedInstance;
 
--(NSArray *)getFileSongs;
-
 @end
