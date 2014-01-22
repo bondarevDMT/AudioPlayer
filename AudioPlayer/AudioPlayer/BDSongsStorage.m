@@ -8,7 +8,6 @@
 //TODO правильно ли делать этот класс синглтоном ведь в течении всего времени жизни приложения в памяти будут висеть два массива и достаточно крупных? или я не правильно понял паттерн синглтон?
 
 #import "BDSongsStorage.h"
-#import "BDSongAtributs.h"
 #import "BDMediaPlayerController.h"
 @interface BDSongsStorage ()
 

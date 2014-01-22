@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BDSongAtributs.h"
+
 @interface BDSongsStorage : NSObject
 
 +(BDSongsStorage *)sharedInstance;
