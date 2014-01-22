@@ -14,7 +14,6 @@
 
 {
     //массив для файлов песен
-    NSMutableArray *fileArray; //TODO правильно ли так их объявлять может надо было сдлеать property?
     NSMutableArray *atributsArray;
     NSMutableArray *allTitleAtributs;
 }
@@ -46,7 +45,7 @@
 {
     self = [super init];
     if (self) {
-        fileArray = [[NSMutableArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"01" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"02" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"1" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"2" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"3" ofType:@"mp3"], nil];
+        NSArray* fileArray = [[NSMutableArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"01" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"02" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"1" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"2" ofType:@"mp3"], [[NSBundle mainBundle] pathForResource:@"3" ofType:@"mp3"], nil];
        
         //Создаю массив атрибутов для каждой песни из fileArray
         atributsArray = [[NSMutableArray alloc] init];
@@ -58,61 +57,9 @@
     return self;
 }
 
--(NSArray *)getFileSongs
+- (NSArray *)getSongsList
 {
-    return fileArray;
-}
-
-
-
-#pragma mark metods for table delegate
-//TODO проблема в том что у меня класс модель занимается задачами контроллера - например метод -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath (где правильнее было бы выполнять методы делегата таблицы если в контроллере то там бы пришлось создавать копии всех таблиц с данными хотя они и так существуют в синглтоне) вопрос как мне из вне достучаться до массивов синглтона? Видимо я не понимаю принцип синглтона я бы делал так: создал в контроллере синглтон и создал массив с названиями песен NSArray *title = [singlton getArrayAtributsTitle]; но это же не правильно.
-
-//В таблице будет только один столбец
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-//количество ячеек равно числу элементов массива из названий всех песен
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [atributsArray count];
-}
-
-//в таблице будут отображаться все значения из массива allTitleAtributs
-
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if(!cell)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    //в таблицу заношу из массива атрибутов (состоящих из экземпляров BDSongAtributs)для всех песен поля Title
-    cell.textLabel.text = [[NSString stringWithFormat:@"%@", [[atributsArray objectAtIndex:indexPath.row]getTitle]]stringByDeletingPathExtension];
-    return cell;
-}
-
-
-//метод для действий если пользователь нажал на элемент таблицы
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-
-{
-    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc] initWithSoundFiles:atributsArray atPath:[[atributsArray objectAtIndex:indexPath.row]getPath] selectedIndex:indexPath.row];
-
-    //TODO как сделать UINavigationController между BDViewController и BDMediaViewPlayerController? по идее надо в этом методе (создал навигэйтконтроллер в делегате приложения и инициализировал его BDViewController теперь надо чтобы в этом методе был переход к  BDMediaPlayerController *audioPlayer) наверное мне надо создать протокол с методом (который передает нужные для инициализации audioPlayer данные расположить его здесь) а поддержку этого метода сделать в BDViewController Так и надо? с виду это как-то неадекватно (но по другому не знаю) и в поддерживаемом протоколе сделать создать BDMediaPlayerController и написать строчку ниже (либо не протокол а приемник/действие)
-    
-    //[self.navigationController pushViewController:scv animated:NO];
-    
-    //может пригодиться
-    
-  //  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioPlayer];
-
-	//[self.navigationController presentViewController:audioPlayer animated:YES completion:nil];
+    return [atributsArray copy];
 }
 
 @end

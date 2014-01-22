@@ -9,10 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDSongsStorage : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface BDSongsStorage : NSObject
 
 +(BDSongsStorage *)sharedInstance;
 
--(NSArray *)getFileSongs;
+- (NSArray*)getSongsList; //Contains BDSonsAttributes
 
 @end
