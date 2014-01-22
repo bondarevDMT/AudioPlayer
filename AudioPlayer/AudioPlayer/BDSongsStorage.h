@@ -13,4 +13,6 @@
 
 +(BDSongsStorage *)sharedInstance;
 
+- (NSArray*)getSongsList; //Contains BDSonsAttributes
+
 @end

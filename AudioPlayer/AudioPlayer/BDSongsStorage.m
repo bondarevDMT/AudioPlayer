@@ -57,5 +57,9 @@
     return self;
 }
 
+- (NSArray *)getSongsList
+{
+    return [atributsArray copy];
+}
 
 @end
