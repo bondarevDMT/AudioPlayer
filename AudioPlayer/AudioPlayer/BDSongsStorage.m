@@ -55,6 +55,8 @@
     return self;
 }
 
+//TODO (доделать) методы для получения массивов с BDSongAtributs (также здесь надо добавить методы для получения сгруппированных массивов нпаример по алфавиту или выборка по определенному исполнителю и так далее эти методы будут использоваться в методе - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath) класса BDViewController (точнее строчке  masForSendBDMediaPlayerController = [[BDSongsStorage sharedInstance] getSongsList];)
+
 - (NSArray *)getSongsList
 {
     return [atributsArray copy];

@@ -13,9 +13,8 @@
 @interface BDMediaPlayerController ()<AVAudioPlayerDelegate>
 
 {
-    //синглтон
-    BDSongsStorage *songStorage;
-    //содержит массив BDSongAtributs для всех файлов
+    //содержит массив BDSongAtributs для всех файлов (в дальнейшем можно будет сделать группировку не по всем файлам, а конкретного исполнителя и так далее) инициализация массива в методе -(BDMediaPlayerController *)initWithMasSong:(NSArray *)masSong IndexSong:(int)index
+
     NSArray *soundFiles;
     //содержит путь к треку
     NSURL *soundFilePath;
@@ -36,10 +35,6 @@
 	self.view.backgroundColor = [UIColor blackColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     updateTimer = nil;
-    //создаю сиглтон
-    songStorage = [BDSongsStorage sharedInstance];
-    //инициализирую массив для базы песен (содержит BDSongAtributs для всех песен)
-    soundFiles = [songStorage getSongsList];
     //создаю bar по стандарту из плеера ios
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -49,13 +44,13 @@
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@""];
     [navigationBar pushNavigationItem:navItem animated:NO];
     //создаю кнопку возврата и инициализирую ее
-
-    //TODO и какой смысл делать
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissAudioPlayer)];
     //добавляю клавишу на бар
     navItem.leftBarButtonItem = doneButton;
-    //TODO где логичнее создать данный экземпляр (будет использоваться для получения данных о треке и отображении их в баре) здесь или в методе инициализации? И я не использую принцип синглтона все так и надо?
-    BDSongAtributs *selectedSong = [[[BDSongsStorage sharedInstance] getSongsList] objectAtIndex:0];
+    
+    //Создаю экземпляр класса BDSongAtributs для выбранной песни
+    BDSongAtributs *selectedSong = [soundFiles objectAtIndex:selectedIndex];
+    
     //Настройка отображения наименования
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 14, 195, 12)];
     titleLabel.text = [selectedSong getTitle];
@@ -104,11 +99,11 @@
 
 #pragma mark metod for init AVAudioPlayer
 //метод используется для принятия данных после выбора пользователем песни
--(BDMediaPlayerController *)initWithIndexSong:(int)index
+-(BDMediaPlayerController *)initWithMasSong:(NSArray *)masSong IndexSong:(int)index
 {
     if (self = [super init]) {
         selectedIndex = index;
-        
+        soundFiles = masSong;
         NSError *error = nil;
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:[[soundFiles objectAtIndex:selectedIndex] getPath] error:&error];
         [player setNumberOfLoops:0];
