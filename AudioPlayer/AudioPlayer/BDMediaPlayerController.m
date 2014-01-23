@@ -7,7 +7,7 @@
 //
 
 #import "BDMediaPlayerController.h"
-#import "BDSongAtributs.h"
+#import "BDSongsStorage.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface BDMediaPlayerController ()<AVAudioPlayerDelegate>
@@ -47,7 +47,7 @@
     //добавляю клавишу на бар
     navItem.leftBarButtonItem = doneButton;
     //TODO где логичнее создать данный экземпляр (будет использоваться для получения данных о треке и отображении их в баре) здесь или в методе инициализации? И я не использую принцип синглтона все так и надо?
-    BDSongAtributs *selectedSong = [soundFiles objectAtIndex:selectedIndex];
+    BDSongAtributs *selectedSong = [[[BDSongsStorage sharedInstance] getSongsList] objectAtIndex:0];
     //Настройка отображения наименования
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 14, 195, 12)];
     titleLabel.text = [selectedSong getTitle];

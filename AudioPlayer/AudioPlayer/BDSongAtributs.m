@@ -64,8 +64,13 @@
     UInt32 id3TagSizeLength = 0;
     //После нее надо будет освободить память(дублирует объект) ЗАДАТЬ вопрос ментору на счет освобождения памяти (при ARC это не надо делать?) Получаем размер тегов для сырых данных аудио  первая в каком формате представить второе размер данных третье что используем в качестве входных данных четвертое количество байт записанных в буфер пятое куда пишем даные
     //TODO уточнить что конкретно получаем не совсем понял перевод
-    error = AudioFormatGetProperty(kAudioFormatProperty_ID3TagSize, ID3DataSize, rawID3raw, &id3TagSizeLength, &id3TagSize);
-    if (error != noErr) {
+    error = AudioFormatGetProperty(kAudioFormatProperty_ID3TagSize,
+                                   ID3DataSize,
+                                   rawID3raw,
+                                   &id3TagSizeLength,
+                                   &id3TagSize);
+    if (error != noErr)
+    {
         NSLog(@"AudioFormatGetProperty_ID3TagSize failed");
         switch (error) {
             case kAudioFormatUnspecifiedError:
