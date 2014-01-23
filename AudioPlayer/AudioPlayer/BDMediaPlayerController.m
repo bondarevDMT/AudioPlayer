@@ -13,10 +13,14 @@
 @interface BDMediaPlayerController ()<AVAudioPlayerDelegate>
 
 {
-    NSMutableArray *soundFiles;
+    //синглтон
+    BDSongsStorage *songStorage;
+    //содержит массив BDSongAtributs для всех файлов
+    NSArray *soundFiles;
+    //содержит путь к треку
     NSURL *soundFilePath;
+    //содержит индекс в массиве для переданной песни
     NSInteger selectedIndex;
-    
     AVAudioPlayer *player;
     
 }
@@ -32,6 +36,10 @@
 	self.view.backgroundColor = [UIColor blackColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     updateTimer = nil;
+    //создаю сиглтон
+    songStorage = [BDSongsStorage sharedInstance];
+    //инициализирую массив для базы песен (содержит BDSongAtributs для всех песен)
+    soundFiles = [songStorage getSongsList];
     //создаю bar по стандарту из плеера ios
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -41,7 +49,7 @@
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@""];
     [navigationBar pushNavigationItem:navItem animated:NO];
     //создаю кнопку возврата и инициализирую ее
-    //TODO как называется клавиша со стрелкой
+
     //TODO и какой смысл делать
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissAudioPlayer)];
     //добавляю клавишу на бар
@@ -96,19 +104,15 @@
 
 #pragma mark metod for init AVAudioPlayer
 //метод используется для принятия данных после выбора пользователем песни
--(BDMediaPlayerController *)initWithSoundFiles:(NSMutableArray *)songsAtributs atPath:(NSURL *)pathSong selectedIndex:(int)indexInMassive
+-(BDMediaPlayerController *)initWithIndexSong:(int)index
 {
     if (self = [super init]) {
-        soundFiles = songsAtributs;
-        soundFilePath = pathSong;
-        selectedIndex = indexInMassive;
+        selectedIndex = index;
         
         NSError *error = nil;
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[(BDSongAtributs *)[songsAtributs objectAtIndex:selectedIndex]filePath] error:&error];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[[soundFiles objectAtIndex:selectedIndex] getPath] error:&error];
         [player setNumberOfLoops:0];
-         player.delegate = self;
-        
-        
+        player.delegate = self;
         if (error) {
             NSLog(@"%@",error);
         }

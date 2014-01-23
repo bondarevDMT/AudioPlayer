@@ -18,7 +18,7 @@
 	UILabel				*indexLabel;
 }
 
--(BDMediaPlayerController *)initWithSoundFiles:(NSMutableArray *)songs atPath:(NSURL *)path selectedIndex:(int)index;
+-(BDMediaPlayerController *)initWithIndexSong:(int)index;
 
 //метод для возврата к списку песен
 -(void)dismissAudioPlayer;
