@@ -13,10 +13,13 @@
 @interface BDMediaPlayerController ()<AVAudioPlayerDelegate>
 
 {
-    NSMutableArray *soundFiles;
+    //содержит массив BDSongAtributs для всех файлов (в дальнейшем можно будет сделать группировку не по всем файлам, а конкретного исполнителя и так далее) инициализация массива в методе -(BDMediaPlayerController *)initWithMasSong:(NSArray *)masSong IndexSong:(int)index
+
+    NSArray *soundFiles;
+    //содержит путь к треку
     NSURL *soundFilePath;
+    //содержит индекс в массиве для переданной песни
     NSInteger selectedIndex;
-    
     AVAudioPlayer *player;
     
 }
@@ -41,13 +44,13 @@
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@""];
     [navigationBar pushNavigationItem:navItem animated:NO];
     //создаю кнопку возврата и инициализирую ее
-    //TODO как называется клавиша со стрелкой
-    //TODO и какой смысл делать
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissAudioPlayer)];
     //добавляю клавишу на бар
     navItem.leftBarButtonItem = doneButton;
-    //TODO где логичнее создать данный экземпляр (будет использоваться для получения данных о треке и отображении их в баре) здесь или в методе инициализации? И я не использую принцип синглтона все так и надо?
-    BDSongAtributs *selectedSong = [[[BDSongsStorage sharedInstance] getSongsList] objectAtIndex:0];
+    
+    //Создаю экземпляр класса BDSongAtributs для выбранной песни
+    BDSongAtributs *selectedSong = [soundFiles objectAtIndex:selectedIndex];
+    
     //Настройка отображения наименования
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 14, 195, 12)];
     titleLabel.text = [selectedSong getTitle];
@@ -96,19 +99,15 @@
 
 #pragma mark metod for init AVAudioPlayer
 //метод используется для принятия данных после выбора пользователем песни
--(BDMediaPlayerController *)initWithSoundFiles:(NSMutableArray *)songsAtributs atPath:(NSURL *)pathSong selectedIndex:(int)indexInMassive
+-(BDMediaPlayerController *)initWithMasSong:(NSArray *)masSong IndexSong:(int)index
 {
     if (self = [super init]) {
-        soundFiles = songsAtributs;
-        soundFilePath = pathSong;
-        selectedIndex = indexInMassive;
-        
+        selectedIndex = index;
+        soundFiles = masSong;
         NSError *error = nil;
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[(BDSongAtributs *)[songsAtributs objectAtIndex:selectedIndex]filePath] error:&error];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[[soundFiles objectAtIndex:selectedIndex] getPath] error:&error];
         [player setNumberOfLoops:0];
-         player.delegate = self;
-        
-        
+        player.delegate = self;
         if (error) {
             NSLog(@"%@",error);
         }

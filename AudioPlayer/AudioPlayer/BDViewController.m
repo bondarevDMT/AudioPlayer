@@ -14,7 +14,8 @@
 @interface BDViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView * dataTable;
-    BDSongsStorage *songStorage;
+    //TODO данный массив будет использоваться для отправки BDMediaPlayerController (почему написано в методе -(BDMediaPlayerController *)initWithMasSong:(NSArray *)masSong IndexSong:(int)index;)
+    NSArray *masForSendBDMediaPlayerController;
 }
 @end
 
@@ -34,13 +35,10 @@
     [super viewDidLoad];
     //Инициалищирую цвет фона
 	self.view.backgroundColor = [UIColor whiteColor];
-    //Создаю синглтон
-    songStorage = [BDSongsStorage sharedInstance];
     //создаю фрейм для отображения таблицы со списком песен
     CGRect frame = CGRectMake(0.f, 20.f, self.view.frame.size.width, self.view.frame.size.height - 20.f);
     dataTable = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [dataTable setBackgroundView:Nil];
-    //Указываю что делегатом таблицы является BDSongsStorage
     [dataTable setDelegate:self];
     [dataTable setDelegate:self];
     [dataTable setDataSource:self];
@@ -71,8 +69,8 @@
     if (!cell)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:kTableViewCellIdentifier];
-    NSArray *songList = [[BDSongsStorage sharedInstance] getSongsList];
-    BDSongAtributs *currentSong = [songList objectAtIndex:indexPath.row];
+    masForSendBDMediaPlayerController = [[BDSongsStorage sharedInstance] getSongsList];
+    BDSongAtributs *currentSong = [masForSendBDMediaPlayerController objectAtIndex:indexPath.row];
     cell.textLabel.text = [currentSong getTitle];
     return cell;
 }
@@ -80,7 +78,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc] initWithSoundFiles:<#(NSMutableArray *)#> atPath:<#(NSURL *)#> selectedIndex:<#(int)#>]
+    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc]initWithMasSong:masForSendBDMediaPlayerController IndexSong:indexPath.row];
+    //TODO как сделать UINavigationController между BDViewController и BDMediaViewPlayerController? по идее надо в этом методе (создал навигэйтконтроллер в делегате приложения и инициализировал его BDViewController теперь надо чтобы в этом методе был переход к  BDMediaPlayerController *audioPlayer) наверное мне надо создать протокол с методом (который передает нужные для инициализации audioPlayer данные расположить его здесь) а поддержку этого метода сделать в BDViewController Так и надо? с виду это как-то неадекватно (но по другому не знаю) и в поддерживаемом протоколе сделать создать BDMediaPlayerController и написать строчку ниже (либо не протокол а приемник/действие)
+    
+    //[self.navigationController pushViewController:scv animated:NO];
+    
+    //может пригодиться
+    
+    //  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioPlayer];
+    
+	//[self.navigationController presentViewController:audioPlayer animated:YES completion:nil];
 }
 
 @end
