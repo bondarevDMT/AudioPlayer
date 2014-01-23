@@ -8,6 +8,7 @@
 
 #import "BDViewController.h"
 #import "BDSongsStorage.h"
+#import "BDMediaPlayerController.h"
 
 
 @interface BDViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -77,6 +78,9 @@
 }
 
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc] initWithSoundFiles:<#(NSMutableArray *)#> atPath:<#(NSURL *)#> selectedIndex:<#(int)#>]
+}
 
 @end
