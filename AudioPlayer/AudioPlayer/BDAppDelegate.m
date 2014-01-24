@@ -19,7 +19,7 @@
     BDViewController *viewController = [[BDViewController alloc] init];
     
     BDMediaPlayerController *MediaPlayer = [[BDMediaPlayerController alloc] init];
-    [[self window] setRootViewController:viewController];
+    [[self window] setRootViewController:MediaPlayer];
     
    // UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 

@@ -32,11 +32,12 @@ static const CGFloat kDefaultReflectionFraction = 0.65;
 static const CGFloat kDefaultReflectionOpacity = 0.40;
 
 @synthesize updateTimer, titleLabel, artistLabel, albumLabel, indexLabel, duration, currentTime;
-@synthesize progressSlider;
+@synthesize progressSlider, volumeSlider;
 @synthesize containerView;
 @synthesize artWorkView;
 @synthesize reflectionView;
 @synthesize gradientLayer;
+@synthesize playButton, pauseButton, nextButton, previousButton;
 
 
 - (void)viewDidLoad
@@ -47,7 +48,7 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     updateTimer = nil;
     
     //Для проверки работоспособности контроллера в дальнейшем удалить
-    selectedIndex = 2;
+    selectedIndex = 1;
     soundFiles = [[BDSongsStorage sharedInstance] getSongsList];
     
     //создаю bar по стандарту из плеера ios
@@ -135,10 +136,55 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     
     //Панель управления исполнением (play и так далее)
     
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10) ];
-    v.backgroundColor = [UIColor clearColor];
     
-
+    //подложка под панель управления песней
+    UIImageView *buttonBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44+320, self.view.bounds.size.width, 96)];
+    buttonBackground.image = [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerBarBackground" ofType:@"png"]] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+   [self.view addSubview:buttonBackground];
+    //клавиша PLAY
+    playButton = [[UIButton alloc] initWithFrame:CGRectMake(144, 370, 40, 40)];
+    [playButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerPlay" ofType:@"png"]] forState:UIControlStateNormal];
+    [playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
+    playButton.showsTouchWhenHighlighted = YES;
+    [self.view addSubview:playButton];
+    //клавиша Pause
+    pauseButton = [[UIButton alloc] initWithFrame:CGRectMake(140, 370, 40, 40)];
+    [pauseButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerPause" ofType:@"png"]] forState:UIControlStateNormal];
+    [pauseButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
+    pauseButton.showsTouchWhenHighlighted = YES;
+    
+    //Клавиша nextButton
+    
+    nextButton = [[UIButton alloc] initWithFrame: CGRectMake(220, 370, 40, 40)];
+    [nextButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerNextTrack" ofType:@"png"]] forState:UIControlStateNormal];
+    [nextButton addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
+    nextButton.showsTouchWhenHighlighted = YES;
+    //TODO разобраться
+    nextButton.enabled = [self canGoToTheNextTrack];
+    [self.view addSubview:nextButton];
+    
+    //клавиша previousButton
+    previousButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 370, 40, 40) ];
+    [previousButton setImage:[[NSBundle mainBundle] pathForResource:@"AudioPlayerPrevTrack" ofType:@"png"] forState:UIControlStateNormal];
+    [previousButton addTarget:self action:@selector(previous) forControlEvents:UIControlEventTouchUpInside];
+    previousButton.showsTouchWhenHighlighted = YES;
+    previousButton.enabled = [self canGoThePreviousTrack];
+    [self.view addSubview:previousButton];
+    
+    //Клавиша volumeSlider
+    volumeSlider = [[UISlider alloc] initWithFrame:CGRectMake(25, 420, 270, 9)];
+    [volumeSlider setThumbImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerVolumeKnob" ofType:@"png"]] forState:UIControlStateNormal];
+    //TODO уточнить (сам)
+    [volumeSlider setMinimumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerScrubberLeft" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
+    [volumeSlider setMaximumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerScrubberRight" ofType:@"png"]]stretchableImageWithLeftCapWidth:5 topCapHeight:3] forState:UIControlStateNormal];
+    [volumeSlider addTarget:self action:@selector(volumeSliderMoved:) forControlEvents:UIControlEventValueChanged];
+    if ([[NSUserDefaults standardUserDefaults] floatForKey:@"PlayerVolume"]) {
+        volumeSlider.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"PlayerVolume"];
+    } else {
+        volumeSlider.value = player.volume;
+    }
+    [self updateForPlayerInfo:player];
+    [self updateViewForPlayerState:player];
     
     
 }
@@ -173,4 +219,59 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
 {
   //
 }
+
+//метод для клавиши (artWirkView) открывает дополнительную информацию по треку
+-(void)showOverlayView
+{
+    soundFiles;
+}
+//без понятия что это за метод
+- (UIImage *)reflectedImage:(UIButton *)fromImage withHeight:(NSUInteger)height
+{
+    UIImage *a = [[UIImage alloc] init];
+    return a;
+}
+
+//метод для клавиши playButton
+-(void)play
+{
+    //
+}
+//метод для клавиши next
+-(void)next
+{
+//
+}
+-(BOOL)canGoToTheNextTrack
+{
+    return YES;
+}
+//метод для клавиши previous
+-(void)previous
+{
+    //
+}
+-(BOOL)canGoThePreviousTrack
+{
+    return YES;
+}
+
+//метод для ползунка громкости
+-(void)volumeSliderMoved:(UISlider *)sender
+{
+    //
+}
+
+//метод для обновления данных по треку для плеера
+-(void)updateForPlayerInfo: (AVAudioPlayer *)p
+{
+    //
+}
+//метод для обновления вьюх с данными для плеера
+-(void)updateViewForPlayerState:(AVAudioPlayer *)p
+{
+//
+}
+
+
 @end

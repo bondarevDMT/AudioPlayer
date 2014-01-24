@@ -15,11 +15,11 @@
 //отображение на Tab Bar названия песни, артиста, альбома, продолжительности
 @property (nonatomic, retain) UILabel *titleLabel, *artistLabel, *albumLabel, *indexLabel, *duration, *currentTime;
 //ползунок (для продолжительности трека)
-@property (nonatomic, retain) UISlider *progressSlider;
+@property (nonatomic, retain) UISlider *progressSlider, *volumeSlider;
 //Содержит ??
 @property (nonatomic, retain) UIView *containerView;
 //Клавиша чтобы при нажатии на cover альбома открывалось дополнительное окно с длиной трека и прочей информацией
-@property (nonatomic, retain) UIButton *artWorkView;
+@property (nonatomic, retain) UIButton *artWorkView, *playButton, *pauseButton, *nextButton, *previousButton;
 
 //??
 @property (nonatomic, retain) UIImageView *reflectionView;
@@ -34,9 +34,22 @@
 -(void)dismissAudioPlayer;
 //метод для клавиши (artWirkView) открывает дополнительную информацию по треку
 -(void)showOverlayView;
+//метод для клавиши PlayButton
+-(void)play;
+//метод для клавиши next
+-(void)next;
+
+-(BOOL)canGoToTheNextTrack;
+//метод для клавиши previous
+-(void)previous;
+
+-(BOOL)canGoThePreviousTrack;
+
+//метод для ползунка громкости
+-(void)volumeSliderMoved:(UISlider*)sender;
+
 //без понятия что это за метод
 - (UIImage *)reflectedImage:(UIButton *)fromImage withHeight:(NSUInteger)height;
--(void)
 
 @end
 
