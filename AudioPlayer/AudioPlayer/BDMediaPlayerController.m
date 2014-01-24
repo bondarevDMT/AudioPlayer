@@ -45,6 +45,11 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
 	self.view.backgroundColor = [UIColor blackColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     updateTimer = nil;
+    
+    //Для проверки работоспособности контроллера в дальнейшем удалить
+    selectedIndex = 2;
+    soundFiles = [[BDSongsStorage sharedInstance] getSongsList];
+    
     //создаю bar по стандарту из плеера ios
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
