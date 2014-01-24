@@ -19,6 +19,23 @@
 		840B91C318894779005529C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B91AB18894779005529C1 /* UIKit.framework */; };
 		840B91CB18894779005529C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 840B91C918894779005529C1 /* InfoPlist.strings */; };
 		840B91CD18894779005529C1 /* AudioPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 840B91CC18894779005529C1 /* AudioPlayerTests.m */; };
+		840EFCE11892D477005CB9FA /* AudioPlayerAlbumInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD01892D477005CB9FA /* AudioPlayerAlbumInfo.png */; };
+		840EFCE21892D477005CB9FA /* AudioPlayerBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD11892D477005CB9FA /* AudioPlayerBarBackground.png */; };
+		840EFCE31892D477005CB9FA /* AudioPlayerNextTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD21892D477005CB9FA /* AudioPlayerNextTrack.png */; };
+		840EFCE41892D477005CB9FA /* AudioPlayerNoArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD31892D477005CB9FA /* AudioPlayerNoArtwork.png */; };
+		840EFCE51892D477005CB9FA /* AudioPlayerPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD41892D477005CB9FA /* AudioPlayerPause.png */; };
+		840EFCE61892D477005CB9FA /* AudioPlayerPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD51892D477005CB9FA /* AudioPlayerPlay.png */; };
+		840EFCE71892D477005CB9FA /* AudioPlayerPrevTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD61892D477005CB9FA /* AudioPlayerPrevTrack.png */; };
+		840EFCE81892D477005CB9FA /* AudioPlayerRepeatOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD71892D477005CB9FA /* AudioPlayerRepeatOff.png */; };
+		840EFCE91892D477005CB9FA /* AudioPlayerRepeatOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD81892D477005CB9FA /* AudioPlayerRepeatOn.png */; };
+		840EFCEA1892D477005CB9FA /* AudioPlayerRepeatOneOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCD91892D477005CB9FA /* AudioPlayerRepeatOneOn.png */; };
+		840EFCEB1892D477005CB9FA /* AudioPlayerScrubberKnob.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDA1892D477005CB9FA /* AudioPlayerScrubberKnob.png */; };
+		840EFCEC1892D477005CB9FA /* AudioPlayerScrubberLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDB1892D477005CB9FA /* AudioPlayerScrubberLeft.png */; };
+		840EFCED1892D477005CB9FA /* AudioPlayerScrubberRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDC1892D477005CB9FA /* AudioPlayerScrubberRight.png */; };
+		840EFCEE1892D477005CB9FA /* AudioPlayerShuffleOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDD1892D477005CB9FA /* AudioPlayerShuffleOff.png */; };
+		840EFCEF1892D477005CB9FA /* AudioPlayerShuffleOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDE1892D477005CB9FA /* AudioPlayerShuffleOn.png */; };
+		840EFCF01892D477005CB9FA /* AudioPlayerTableBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCDF1892D477005CB9FA /* AudioPlayerTableBackground.png */; };
+		840EFCF11892D477005CB9FA /* AudioPlayerVolumeKnob.png in Resources */ = {isa = PBXBuildFile; fileRef = 840EFCE01892D477005CB9FA /* AudioPlayerVolumeKnob.png */; };
 		843B923C188C39F0000C474C /* BDSongsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 843B923B188C39F0000C474C /* BDSongsStorage.m */; };
 		84431C27188DAD5A00D8FFFA /* BDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84431C26188DAD5A00D8FFFA /* BDViewController.m */; };
 		84E04A331889922100D9430C /* 01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E04A301889922100D9430C /* 01.mp3 */; };
@@ -58,6 +75,23 @@
 		840B91C818894779005529C1 /* AudioPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AudioPlayerTests-Info.plist"; sourceTree = "<group>"; };
 		840B91CA18894779005529C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		840B91CC18894779005529C1 /* AudioPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerTests.m; sourceTree = "<group>"; };
+		840EFCD01892D477005CB9FA /* AudioPlayerAlbumInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerAlbumInfo.png; sourceTree = "<group>"; };
+		840EFCD11892D477005CB9FA /* AudioPlayerBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerBarBackground.png; sourceTree = "<group>"; };
+		840EFCD21892D477005CB9FA /* AudioPlayerNextTrack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerNextTrack.png; sourceTree = "<group>"; };
+		840EFCD31892D477005CB9FA /* AudioPlayerNoArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerNoArtwork.png; sourceTree = "<group>"; };
+		840EFCD41892D477005CB9FA /* AudioPlayerPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerPause.png; sourceTree = "<group>"; };
+		840EFCD51892D477005CB9FA /* AudioPlayerPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerPlay.png; sourceTree = "<group>"; };
+		840EFCD61892D477005CB9FA /* AudioPlayerPrevTrack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerPrevTrack.png; sourceTree = "<group>"; };
+		840EFCD71892D477005CB9FA /* AudioPlayerRepeatOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerRepeatOff.png; sourceTree = "<group>"; };
+		840EFCD81892D477005CB9FA /* AudioPlayerRepeatOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerRepeatOn.png; sourceTree = "<group>"; };
+		840EFCD91892D477005CB9FA /* AudioPlayerRepeatOneOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerRepeatOneOn.png; sourceTree = "<group>"; };
+		840EFCDA1892D477005CB9FA /* AudioPlayerScrubberKnob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerScrubberKnob.png; sourceTree = "<group>"; };
+		840EFCDB1892D477005CB9FA /* AudioPlayerScrubberLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerScrubberLeft.png; sourceTree = "<group>"; };
+		840EFCDC1892D477005CB9FA /* AudioPlayerScrubberRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerScrubberRight.png; sourceTree = "<group>"; };
+		840EFCDD1892D477005CB9FA /* AudioPlayerShuffleOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerShuffleOff.png; sourceTree = "<group>"; };
+		840EFCDE1892D477005CB9FA /* AudioPlayerShuffleOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerShuffleOn.png; sourceTree = "<group>"; };
+		840EFCDF1892D477005CB9FA /* AudioPlayerTableBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerTableBackground.png; sourceTree = "<group>"; };
+		840EFCE01892D477005CB9FA /* AudioPlayerVolumeKnob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayerVolumeKnob.png; sourceTree = "<group>"; };
 		843B923A188C39F0000C474C /* BDSongsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSongsStorage.h; sourceTree = "<group>"; };
 		843B923B188C39F0000C474C /* BDSongsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSongsStorage.m; sourceTree = "<group>"; };
 		84431C25188DAD5A00D8FFFA /* BDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDViewController.h; sourceTree = "<group>"; };
@@ -152,6 +186,7 @@
 				84E8BA6F188EE07F00E4C0DC /* 1.mp3 */,
 				84E8BA70188EE07F00E4C0DC /* 2.mp3 */,
 				84E8BA71188EE07F00E4C0DC /* 3.mp3 */,
+				840EFCCF1892D477005CB9FA /* Images */,
 				840B91AF18894779005529C1 /* AudioPlayer-Info.plist */,
 				840B91B018894779005529C1 /* InfoPlist.strings */,
 				840B91B318894779005529C1 /* main.m */,
@@ -176,6 +211,30 @@
 				840B91C918894779005529C1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		840EFCCF1892D477005CB9FA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				840EFCD01892D477005CB9FA /* AudioPlayerAlbumInfo.png */,
+				840EFCD11892D477005CB9FA /* AudioPlayerBarBackground.png */,
+				840EFCD21892D477005CB9FA /* AudioPlayerNextTrack.png */,
+				840EFCD31892D477005CB9FA /* AudioPlayerNoArtwork.png */,
+				840EFCD41892D477005CB9FA /* AudioPlayerPause.png */,
+				840EFCD51892D477005CB9FA /* AudioPlayerPlay.png */,
+				840EFCD61892D477005CB9FA /* AudioPlayerPrevTrack.png */,
+				840EFCD71892D477005CB9FA /* AudioPlayerRepeatOff.png */,
+				840EFCD81892D477005CB9FA /* AudioPlayerRepeatOn.png */,
+				840EFCD91892D477005CB9FA /* AudioPlayerRepeatOneOn.png */,
+				840EFCDA1892D477005CB9FA /* AudioPlayerScrubberKnob.png */,
+				840EFCDB1892D477005CB9FA /* AudioPlayerScrubberLeft.png */,
+				840EFCDC1892D477005CB9FA /* AudioPlayerScrubberRight.png */,
+				840EFCDD1892D477005CB9FA /* AudioPlayerShuffleOff.png */,
+				840EFCDE1892D477005CB9FA /* AudioPlayerShuffleOn.png */,
+				840EFCDF1892D477005CB9FA /* AudioPlayerTableBackground.png */,
+				840EFCE01892D477005CB9FA /* AudioPlayerVolumeKnob.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		84E04A2A1889908A00D9430C /* Model */ = {
@@ -283,13 +342,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840EFCE21892D477005CB9FA /* AudioPlayerBarBackground.png in Resources */,
 				84E04A331889922100D9430C /* 01.mp3 in Resources */,
 				84E8BA74188EE07F00E4C0DC /* 3.mp3 in Resources */,
+				840EFCEA1892D477005CB9FA /* AudioPlayerRepeatOneOn.png in Resources */,
 				840B91B218894779005529C1 /* InfoPlist.strings in Resources */,
+				840EFCEC1892D477005CB9FA /* AudioPlayerScrubberLeft.png in Resources */,
+				840EFCEE1892D477005CB9FA /* AudioPlayerShuffleOff.png in Resources */,
+				840EFCE31892D477005CB9FA /* AudioPlayerNextTrack.png in Resources */,
 				84E04A341889922100D9430C /* 02.mp3 in Resources */,
+				840EFCE61892D477005CB9FA /* AudioPlayerPlay.png in Resources */,
+				840EFCE91892D477005CB9FA /* AudioPlayerRepeatOn.png in Resources */,
+				840EFCEB1892D477005CB9FA /* AudioPlayerScrubberKnob.png in Resources */,
+				840EFCEF1892D477005CB9FA /* AudioPlayerShuffleOn.png in Resources */,
+				840EFCF11892D477005CB9FA /* AudioPlayerVolumeKnob.png in Resources */,
 				84E8BA73188EE07F00E4C0DC /* 2.mp3 in Resources */,
+				840EFCE71892D477005CB9FA /* AudioPlayerPrevTrack.png in Resources */,
+				840EFCF01892D477005CB9FA /* AudioPlayerTableBackground.png in Resources */,
+				840EFCE81892D477005CB9FA /* AudioPlayerRepeatOff.png in Resources */,
+				840EFCE41892D477005CB9FA /* AudioPlayerNoArtwork.png in Resources */,
+				840EFCE51892D477005CB9FA /* AudioPlayerPause.png in Resources */,
+				840EFCED1892D477005CB9FA /* AudioPlayerScrubberRight.png in Resources */,
 				840B91BA18894779005529C1 /* Images.xcassets in Resources */,
 				84E8BA72188EE07F00E4C0DC /* 1.mp3 in Resources */,
+				840EFCE11892D477005CB9FA /* AudioPlayerAlbumInfo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
