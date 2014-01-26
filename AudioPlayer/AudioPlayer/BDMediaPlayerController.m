@@ -20,7 +20,6 @@
     NSURL *soundFilePath;
     //содержит индекс в массиве для переданной песни
     NSInteger selectedIndex;
-    AVAudioPlayer *player;
     
 }
 
@@ -31,6 +30,7 @@
 static const CGFloat kDefaultReflectionFraction = 0.65;
 static const CGFloat kDefaultReflectionOpacity = 0.40;
 
+@synthesize player;
 @synthesize updateTimer, titleLabel, artistLabel, albumLabel, indexLabel, duration, currentTime;
 @synthesize progressSlider, volumeSlider;
 @synthesize containerView;
@@ -38,6 +38,9 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
 @synthesize reflectionView;
 @synthesize gradientLayer;
 @synthesize playButton, pauseButton, nextButton, previousButton;
+@synthesize overLayView;
+@synthesize shuffleButton;
+@synthesize shaffle;
 
 
 - (void)viewDidLoad
@@ -50,7 +53,6 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     //Для проверки работоспособности контроллера в дальнейшем удалить
     selectedIndex = 1;
     soundFiles = [[BDSongsStorage sharedInstance] getSongsList];
-    
     //создаю bar по стандарту из плеера ios
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -116,6 +118,7 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     artWorkView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
     //для кнопки использовать катринку cover альбома
     [artWorkView setImage:[selectedSong getCoverImage] forState:UIControlStateNormal];
+    //если нажимаю на кнопку то отображается отдельная панель с доп информацией по треку (продолжительность оставшееся время)
     [artWorkView addTarget:self action:@selector(showOverlayView) forControlEvents:UIControlEventTouchUpInside];
     //TODO уточнить (самому) - это настройки клавиши для отображения доп инфы по треку
     artWorkView.showsTouchWhenHighlighted = NO;
@@ -165,7 +168,7 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     
     //клавиша previousButton
     previousButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 370, 40, 40) ];
-    [previousButton setImage:[[NSBundle mainBundle] pathForResource:@"AudioPlayerPrevTrack" ofType:@"png"] forState:UIControlStateNormal];
+    [previousButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"AudioPlayerPrevTrack" ofType:@"png"]] forState:UIControlStateNormal];
     [previousButton addTarget:self action:@selector(previous) forControlEvents:UIControlEventTouchUpInside];
     previousButton.showsTouchWhenHighlighted = YES;
     previousButton.enabled = [self canGoThePreviousTrack];
@@ -211,20 +214,205 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
             NSLog(@"%@",error);
         }
     }
-     return self;
+    return self;
 }
+
+
+#pragma mark methods for additional panel
+
+//метод для клавиши (artWirkView) показывает доп панель с информацией по треку (сколько по времения трек и так далее)
+-(void)showOverlayView
+{
+    if (overLayView == nil) {
+        //Создание View  для отображения дополнительной панели
+        overLayView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 76) ];
+        overLayView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+        //TODO уточнить самому
+        overLayView.opaque = NO;
+        
+        //Создание UISlider для отображения ползунка продолжительности
+        progressSlider = [[UISlider alloc] initWithFrame: CGRectMake(54, 20, 212, 23)];
+        [progressSlider setThumbImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerScrubberKnob" ofType:@"png"]] forState:UIControlStateNormal];
+        //TODO уточнить самому
+        [progressSlider setMinimumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerScrubberLeft" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
+        [progressSlider setMaximumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerScrubberRight" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3] forState:UIControlStateNormal];
+        //устанавливаю действие на ползунок
+        [progressSlider addTarget:self action:@selector(progressSliderMoved:) forControlEvents:UIControlEventValueChanged];
+        //устанавливаю макс и мин значения
+        progressSlider.maximumValue = player.duration;
+        progressSlider.minimumValue = 0.0;
+        [overLayView addSubview:progressSlider];
+        
+        //создание UILabel для отображение номера песни
+        indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(128, 2, 64, 21)];
+        indexLabel.font = [UIFont boldSystemFontOfSize:12];
+        indexLabel.shadowOffset = CGSizeMake(0, -1);
+        indexLabel.backgroundColor = [UIColor clearColor];
+        indexLabel.textColor = [UIColor whiteColor];
+        indexLabel.textAlignment = NSTextAlignmentCenter;
+        [overLayView addSubview:indexLabel];
+        
+        //создание UILable для отображения продолжительности песни (сколько осталось прослушать)
+        duration = [[UILabel alloc] initWithFrame: CGRectMake(272, 21, 48, 21)];
+        duration.font = [UIFont boldSystemFontOfSize:14];
+        duration.shadowOffset = CGSizeMake(0, -1);
+        duration.shadowColor = [UIColor clearColor];
+        duration.textColor = [UIColor whiteColor];
+        [overLayView addSubview:duration];
+        
+        //создание UILable для отображения сколько прослушано (начинается с 0:0)
+        currentTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 48, 21)];
+        currentTime.font = [UIFont boldSystemFontOfSize:14];
+        currentTime.shadowOffset = CGSizeMake(0, -1);
+        currentTime.shadowColor = [UIColor blackColor];
+        currentTime.backgroundColor = [UIColor clearColor];
+        currentTime.textColor = [UIColor whiteColor];
+        currentTime.textAlignment = NSTextAlignmentRight;
+        [overLayView addSubview:currentTime];
+        
+        //TODO разобраться самому
+        duration.adjustsFontSizeToFitWidth = YES;
+        currentTime.adjustsFontSizeToFitWidth = YES;
+        
+        //Создание клавиши для перемешивания песен
+        
+        shuffleButton = [[UIButton alloc]initWithFrame: CGRectMake(280, 45, 32, 28) ];
+        [shuffleButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerShuffleOff" ofType:@"png"]] forState:UIControlStateNormal];
+        [shuffleButton addTarget:self action:@selector(toggleShuffle) forControlEvents:UIControlEventTouchUpInside];
+        [overLayView addSubview:shuffleButton];
+    }
+    [self updateForPlayerInfo:player];
+    [self updateViewForPlayerState:player];
+    
+    //TODO разобраться самому с анимацией
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    if ([overLayView superview]) {
+        [overLayView removeFromSuperview];
+    }
+    else
+    {
+        [containerView addSubview:overLayView];
+    }
+    [UIView commitAnimations];
+}
+
+
+//TODO метод для перемешивания песен (сделано только отображение клавиши)
+
+-(void)toggleShuffle
+{
+    //когда первый раз запускаю перемешивание shaffle = nil (поэтому перехожу на else)
+    if (shaffle) {
+        shaffle = NO;
+        [shuffleButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerShuffleOff" ofType:@"png"]] forState:UIControlStateNormal];
+    }
+    else {
+        shaffle = YES;
+        [shuffleButton setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerShuffleOn" ofType:@"png"]] forState:UIControlStateNormal];
+    }
+    [self updateForPlayerInfo:player];
+    [self updateViewForPlayerState:player];
+}
+
+
+
+
+#pragma mark Service methods to initialize the parameters (duration, currentTime, indexLabel, title, artist, album and others)
+
+
+//метод для обновления данных о времени в течении проигрывания песни
+-(void)updateCurrentTimeForPlayer:(AVAudioPlayer *)p
+{
+    //получение данных о прошедшем времени прослушивания
+    NSString *current = [NSString stringWithFormat:@"%d:%02d", (int)p.currentTime / 60, (int)p.currentTime % 60, nil];
+    //получение данных о оставшемся времени прослушивания
+    NSString *dur = [NSString stringWithFormat:@"-%d:%02d", (int)(p.duration - p.currentTime) / 60, (int)(p.duration - p.currentTime) % 60, nil];
+    //инициализация полученными данными UILabel (duration and currentTime)
+    duration.text = dur;
+    currentTime.text = current;
+    progressSlider.value = p.currentTime;
+}
+
+//метод специально для использования в методе -(void)updateViewForPlayerState:(AVAudioPlayer *)p для [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateCurrentTime!!!!) userInfo:p repeats:YES
+-(void)updateCurrentTime
+{
+    [self updateCurrentTimeForPlayer:self.player];
+}
+
+//метод инициализации и формата представления данных о номере песни, времени и "попловке" продолжительности песни
+-(void)updateForPlayerInfo: (AVAudioPlayer *)p
+{
+    //Занесение в UILabel данных о продолжительности песни в формате минут:секунд
+    duration.text = [NSString stringWithFormat:@"%d:%02d", (int)p.duration / 60, (int)p.duration % 60, nil];
+    
+    //Занесение в UILabel данных о номере песни из массива в формате "N песни" of "число песен"
+    indexLabel.text = [NSString stringWithFormat:@"%d of %d", (selectedIndex + 1), [soundFiles count]];
+    progressSlider.maximumValue = p.duration;
+    if ([[NSUserDefaults standardUserDefaults] floatForKey:@"PlayerVolume"]) {
+        volumeSlider.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"PlayerVolume"];
+    }
+    else {
+        volumeSlider.value = p.volume;
+    }
+}
+
+//метод для обновления вьюх с данными для плеера
+-(void)updateViewForPlayerState:(AVAudioPlayer *)p
+{
+    //Занесение данных в UILabel название песни имя артиста и название альбома)
+    titleLabel.text = [[soundFiles objectAtIndex:selectedIndex] getTitle];
+    artistLabel.text = [[soundFiles objectAtIndex:selectedIndex] getArtist];
+    albumLabel.text = [[soundFiles objectAtIndex:selectedIndex] getAlbum];
+    
+    [self updateCurrentTimeForPlayer:p];
+    if (updateTimer) {
+        [updateTimer invalidate];
+    }
+    //выбор какая клавиша будет отображаться (если проингрывается песня то отображается клавиша pause иначе клавиша play)
+    if (p.playing) {
+        [playButton removeFromSuperview];
+        [self.view addSubview:pauseButton];
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateCurrentTime) userInfo:p repeats:YES];
+    }
+    else
+    {
+        [pauseButton removeFromSuperview];
+        [self.view addSubview:playButton];
+        updateTimer = nil;
+    }
+    //настройка для кнопок (что им делать при обновлении)
+    nextButton.enabled = [self canGoToTheNextTrack];
+    previousButton.enabled = [self canGoThePreviousTrack];
+}
+
+
+
+
+
+
+
+#pragma mark Other metods
+
+
+//метод для ползунка продолжительности песни
+-(void)progressSliderMoved:(UISlider *)sender
+{
+    player.volume = sender.value;
+    [self updateCurrentTimeForPlayer:player];
+}
+
+
+
 
 //метод для возврата к списку песен
 -(void)dismissAudioPlayer
 {
-  //
+    //
 }
 
-//метод для клавиши (artWirkView) открывает дополнительную информацию по треку
--(void)showOverlayView
-{
-    soundFiles;
-}
+
 //без понятия что это за метод
 - (UIImage *)reflectedImage:(UIButton *)fromImage withHeight:(NSUInteger)height
 {
@@ -235,7 +423,14 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
 //метод для клавиши playButton
 -(void)play
 {
-    //
+    if (self.player.playing == YES) {
+        [self.player pause];
+    }
+    else{
+        if ([self.player play]) {
+                        }
+        
+    }
 }
 //метод для клавиши next
 -(void)next
@@ -262,16 +457,10 @@ static const CGFloat kDefaultReflectionOpacity = 0.40;
     //
 }
 
-//метод для обновления данных по треку для плеера
--(void)updateForPlayerInfo: (AVAudioPlayer *)p
-{
-    //
-}
-//метод для обновления вьюх с данными для плеера
--(void)updateViewForPlayerState:(AVAudioPlayer *)p
-{
-//
-}
+
+
+
+
 
 
 @end

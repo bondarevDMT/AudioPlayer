@@ -177,7 +177,7 @@
 //TODO как получить обложку песни?
 -(UIImage *)getCoverImage
 {
-    return nil;
+    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AudioPlayerNoArtwork" ofType:@"png"]];
 }
     
 -(NSURL *) getPath
