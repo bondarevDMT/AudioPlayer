@@ -10,9 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BDSongAtributs.h"
 
+//@protocol BDMediaPlayerControllerDelegate;
+
+
 @interface BDMediaPlayerController : UIViewController  <AVAudioPlayerDelegate>
 
-//объявляю протокол
+//объявляю экземпляр хранящий протокол
 //@property(nonatomic, assign) id <BDMediaPlayerControllerDelegate> delegate;
 
 @property (nonatomic, retain) AVAudioPlayer *player;
@@ -34,7 +37,7 @@
 //??
 @property (nonatomic, retain) CAGradientLayer *gradientLayer;
 //BOOL значение для проверки нажата клавиша перемешивания песен или нет
-@property (nonatomic, assign)BOOL shaffle;
+@property (nonatomic, assign)BOOL shaffle, interrupted;
 
 
 
@@ -66,10 +69,10 @@
 -(void)toggleShuffle;
 //без понятия что это за метод
 - (UIImage *)reflectedImage:(UIButton *)fromImage withHeight:(NSUInteger)height;
-
 @end
 
-@protocol  BDMediaPlayerControllerDelegate <NSObject>
+
+/*@protocol  BDMediaPlayerControllerDelegate <NSObject>
 @required
 @optional
 //метод для проигрывания песни
@@ -80,4 +83,4 @@
      didStopPlaing:(BDSongAtributs *)audio;
 //метод для закрытия файла
 -(void)audioPlayerDidClose:(BDMediaPlayerController *)player;
-@end
+@end*/

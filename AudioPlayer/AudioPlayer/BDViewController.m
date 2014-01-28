@@ -78,10 +78,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc]initWithMasSong:masForSendBDMediaPlayerController IndexSong:indexPath.row];
-    //TODO как сделать UINavigationController между BDViewController и BDMediaViewPlayerController? по идее надо в этом методе (создал навигэйтконтроллер в делегате приложения и инициализировал его BDViewController теперь надо чтобы в этом методе был переход к  BDMediaPlayerController *audioPlayer) наверное мне надо создать протокол с методом (который передает нужные для инициализации audioPlayer данные расположить его здесь) а поддержку этого метода сделать в BDViewController Так и надо? с виду это как-то неадекватно (но по другому не знаю) и в поддерживаемом протоколе сделать создать BDMediaPlayerController и написать строчку ниже (либо не протокол а приемник/действие)
     
-    //[self.navigationController pushViewController:scv animated:NO];
+    
+    BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc]initWithMasSong:masForSendBDMediaPlayerController IndexSong:indexPath.row];
+    
+    [self.navigationController pushViewController:audioPlayer animated:NO];
     
     //может пригодиться
     

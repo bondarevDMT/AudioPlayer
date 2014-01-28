@@ -17,9 +17,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     BDViewController *viewController = [[BDViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
     
-    BDMediaPlayerController *MediaPlayer = [[BDMediaPlayerController alloc] init];
-    [[self window] setRootViewController:MediaPlayer];
+    //BDMediaPlayerController *MediaPlayer = [[BDMediaPlayerController alloc] init];
+    [[self window] setRootViewController:nav];
     
    // UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 

@@ -512,6 +512,7 @@
 				GCC_PREFIX_HEADER = "AudioPlayer/AudioPlayer-Prefix.pch";
 				INFOPLIST_FILE = "AudioPlayer/AudioPlayer-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -525,6 +526,7 @@
 				GCC_PREFIX_HEADER = "AudioPlayer/AudioPlayer-Prefix.pch";
 				INFOPLIST_FILE = "AudioPlayer/AudioPlayer-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
