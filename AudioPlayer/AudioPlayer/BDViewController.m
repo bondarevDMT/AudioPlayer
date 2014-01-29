@@ -82,7 +82,8 @@
     
     BDMediaPlayerController *audioPlayer = [[BDMediaPlayerController alloc]initWithMasSong:masForSendBDMediaPlayerController IndexSong:indexPath.row];
     
-    [self.navigationController pushViewController:audioPlayer animated:NO];
+    audioPlayer.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.navigationController pushViewController:audioPlayer animated:YES];
     
     //может пригодиться
     
